@@ -1,0 +1,142 @@
+
+h1{
+    font-family: "Bodoni 72", sans-serif;
+    position: absolute;
+    top: 22px;
+    left:56px ;
+    font-size: 55px;
+}
+body{
+    min-width: 600px;
+    overflow: visible;
+}
+
+#qrcode-options-container{
+    width: 50%;
+    height: auto;
+    position: relative;
+    top: 150px;
+}
+
+#qrcode-container{
+    width: 300px;
+    height: 300px;
+    position: absolute;
+    right: 15%;
+    top: 35%;
+    min-width: fit-content;
+}
+
+ul{
+    padding: 0;
+}
+
+
+#collapse-qr-options{
+    position: relative;
+    background-color: #669D34;
+    font-size: 15px;
+    font-family: "Helvetica Neue", sans-serif;
+    font-weight: bold;
+    text-align: left;
+    outline: none;
+    color: black;
+    height: 45px;
+    width: 100%;
+    border-radius: 0;
+    left: 35px;
+    display:inline-block;
+    min-width: fit-content;
+}
+
+#collapse-qr-options li {
+    list-style: none;
+
+}
+
+#collapse-qr-options li label{
+    padding: 10px 29px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 18px;
+    font-weight: 500;
+    cursor: pointer;
+    height: 21px;
+}
+#collapse-qr-options:hover {
+    background-color: #BADC94;
+}
+
+#qr-options{
+    position: inherit;
+    left: 35px;
+ }
+
+#collapse-qr-options label + input[type="radio"]{
+    display: none;
+}
+
+#collapse-qr-options .content{
+    padding: 0 18px;
+    overflow: hidden;
+    background-color: #BADC94;
+    line-height: 26px;
+    max-height: 0;
+    transition: max-height 0.2s;
+
+}
+
+#collapse-qr-options .content p {
+    position:relative;
+    left: 35px;
+}
+
+#collapse-qr-options li label + input[type="radio"]:checked{
+    background-color: #669D34;
+}
+
+#collapse-qr-options label + input[type="radio"]:checked + .content{
+    max-height: 100%;
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 12px;
+}
+
+#qrcode-reader-button{
+    border-radius: 15%;
+    width: 175px;
+    height: 67px;
+    font-size: 14px;
+    background-color: #808080ab;
+    color: black;
+    position: absolute;
+    right: 30px;
+    top:35px;
+}
+
+
+#colorPicker-container{
+    position: absolute;
+    right: 15%;
+    top: 70%;
+    width: 292px;
+    text-align: center;
+}
+
+#options-instructions{
+	position: absolute;
+	top: 100px;
+	left: 55px;
+	padding: 15px;
+	font-size: 18px;
+}
+
+#form-container {
+	position: absolute;
+	right: 16%;
+	top: 25%;
+}
+
+#footer{
+  position: relative;
+  display: block;
+}
