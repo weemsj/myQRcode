@@ -38,7 +38,7 @@
 
     <div id="qrcode-container">
         {% if code %}
-            <img src="data:image/png;base64,{{ code }}">
+            <button class="btn"><a href="data:image/png;base64,{{ code }}" download="qr_code" ><img src="data:image/png;base64,{{ code }}"/> </a> <i class="fa-fa-download"></i> Download</button>
         {% endif %}
     </div>
 
@@ -46,4 +46,12 @@
         <p>Click the color picker below to select a custom color for your qr code </p>
         <input id="color-picker" type="color" value="">
     </span>
+    <div id="instruction-container">
+        <span>
+            <h2>Looking to read your existing QR code click the "Decode My Life" button in the top right corner!</h2>
+        </span>
+    </div>
+
+
+
 {% endblock %}

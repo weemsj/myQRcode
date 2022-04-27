@@ -1,10 +1,18 @@
 from flask import Flask, request, render_template
+from flask_bootstrap import Bootstrap
 from PIL import Image
 import base64
 import io
 import segno
 
-app = Flask(__name__)
+
+def create_app():
+    app = Flask(__name__)
+    Bootstrap(app)
+    return app
+
+
+app = create_app()
 
 
 @app.route('/gen_qrcode', methods=['GET', 'POST'])
@@ -26,6 +34,7 @@ def gen_qrcode():
         return render_template('gen_qrcode.j2')
 
 
+@app.route('/save', methods=['GET', 'POST'])
 def gen_qrcode_save(save_type):
     # try to send qr code back for saving
     text = request.form['encode-text-input']
@@ -38,6 +47,8 @@ def gen_qrcode_save(save_type):
         qrcode.save(text + '.eps')
     elif save_type == 'TXT':
         qrcode.save(text + '.txt')
+    else:
+        qrcode.save(text + '.png')
 
 
 if __name__ == "__main__":
