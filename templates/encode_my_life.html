@@ -1,0 +1,172 @@
+{% extends 'main.j2' %}
+{% block title %}Encode My Life{% endblock %}
+{% block content %}
+    
+    <div class="row p-5">
+    </div>
+
+    <div class="row p-5 justify-content-center">
+
+        <!-- QR options column -->
+        <div class="col-md-5 col-10 pr-5">
+
+            <!-- Accordion options -->
+
+            <div class="accordion" id="qrOpts">
+
+                <!-- Text Option -->
+                <div class="accordion-item">
+                    <h5 class="accordion-header" id="textOpt">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTextOpt" aria-expanded="true" aria-controls="collapseTextOpt"> 
+                        Text
+                        </button>
+                    </h5>
+                    <div id="collapseTextOpt" class="accordion-collapse collapse show" aria-labelledby="textOpt" data-bs-parent="#qrOpts">
+                        <div class="accordion-body">
+
+                            <!-- text endcoder form -->
+                            <form class="form-row" method="POST" action="{{ url_for('text') }}">
+                                <div class="col">
+                                <input name="text-input" type="text" class="form-control" placeholder="enter text here" value="{{ request.form['text-input'] }}"></input>
+                                </div>
+                                <button type="submit" class="btn btn-primary mb-2">Create code</button>
+                            </form>
+
+                            <!-- end text form -->
+                        </div>
+                    </div>
+                </div>
+                <!-- End of text option -->
+
+                <!-- URL option -->
+                <div class="accordion-item">
+                    <h5 class="accordion-header" id="urlOpt">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseUrlOpt" aria-expanded="false" aria-controls="collapseUrlOpt">
+                        URL
+                        </button>
+                    </h5>
+                    <div id="collapseUrlOpt" class="accordion-collapse collapse" aria-labelledby="urlOpt" data-bs-parent="#qrOpts">
+                        <div class="accordion-body">
+
+                            <form class="form-row" method="POST" action="{{ url_for('url') }}">
+                                <div class="col">
+                                <input name="text-input" type="text" class="form-control" placeholder="enter text here" value="{{ request.form['text-input'] }}"></input>
+                                </div>
+                                <button type="submit" class="btn btn-primary mb-2">Create code</button>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+                <!-- End URL option -->
+
+                <!-- Wifi Option -->
+                <div class="accodion-item">
+                    <h5 class="accordion-header" id="wifiOpt">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseWifiOpt" aria-expanded="false" aria-controls="collapseWifiOpt">
+                        Wifi
+                        </button>
+                    </h5>
+                    <div id="collapseWifiOpt" class="accodion-collapse collapse" aria-labelledby="wifiOpt" data-bs-parent="#qrOpts">
+                        <div class="accordion-body">
+                            
+                            <form class="form-row" method="POST" action="{{ url_for('wifi') }}">
+                                <div class="col">
+                                    <input name="ssid" type="text" class="form-control" placeholder="ssid" value="{{ request.form['ssid'] }}"></input>
+                                </div>
+                                <div class="col">
+                                    <input name="password" type="password" class="form-control" placeholder="password" value="{{ request.form['password'] }}"></input>
+                                </div>
+                                <div class="col">
+                                    <input name="security" type="text" class="form-control" placeholder="security ie. WPA" value="{{ request.form['security'] }}"></input>
+                                </div>
+                                <button type="submit" class="btn btn-primary mb-2">Create code</button>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+                <!-- end Wifi option -->
+
+                <!-- Contact Option -->
+                <div class="accordion-item">
+                    <h5 class="accordion-header" id="contactOpt">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseContactOpt" aria-expanded="false" aria-controls="collapseContactOpt">
+                        Contact
+                        </button>
+                    </h5>
+                    </div>
+                    <div id="collapseContactOpt" class="accodion-collapse collapse" aria-labelledby="contactOpt" data-bs-parent="#qrOpts">
+                        <div class="accordion-body">
+                            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- end contact opt -->
+
+                <!-- Geo option -->
+                <div class="accordion-item">
+                    <h5 class="accordion-header" id="geoOpt">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseGeoOpt" aria-expanded="false" aria-controls="collapseGeoOpt">
+                        Geographic Location
+                        </button>
+                    </h5>
+                    <div id="collapseGeoOpt" class="accordion-collapse collapse" aria-labelledby="geoOpt" data-bs-parent="#qrOpts">
+                        <div class="card-body">
+                            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                        </div>
+                    </div>
+                </div>
+            
+                <!-- end geo option -->
+
+                <!-- EPC option -->
+
+                <div class="accordion-item">
+                    <h5 class="accordion-header" id="epcOpt">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseEpcOpt" aria-expanded="false" aria-controls="collapseEpcOpt">
+                        EPC
+                        </button>
+                    </h5>
+                    <div id="collapseEpcOpt" class="accordion-collapse collapse" aria-labelledby="epcOpt" data-bs-parent="#qrOpts">
+                        <div class="accordion-body">
+                            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                        </div>
+                    </div>
+                </div>
+                <!-- end EPC-->
+
+            </div>
+
+            <!-- End Accordion Options -->
+
+        </div>
+        <!-- column end -->
+
+
+        <!-- QR code column -->
+        <div class="col-md-5 col-10 pl-5">
+
+            <!-- QR code card -->
+            <div class="card">
+                {% if code %}
+                    <img id="qr-code" class="card-img-top" src="data:image/png;base64,{{ code }}" alt="Qr Code">
+                {% else %}
+                    <img id="qr-code" class="card-img-top" src="" alt="Card image cap">
+                {% endif %}
+                <div class="card-body text-center">
+                    <h5 class="card-title">QR Code</h5>
+                    <p class="card-text">Click the button bellow to download your QR code. </p>
+                    <a href="data:image/png;base64,{{ code }}" class="btn btn-primary" download="qr_code">Download</a>
+                </div>
+            </div>
+            <!-- QR card end -->
+
+        </div>
+        <!-- column end -->
+    </div>
+ 
+
+
+{% endblock %}

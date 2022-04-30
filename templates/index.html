@@ -1,0 +1,42 @@
+{% extends 'main.j2' %}
+{% block title %}Home{% endblock %}
+{% block content %}
+
+<!-- Cards Container -->
+<div class="justify-content-center row">
+    
+    <!-- Card 1 -->
+    <div class="col m-5 p-5">
+        <div class="card m-5 text-center rounded">
+            <div class="card-header text-center">
+                Encode My Life
+            </div>
+            <div class="card-body">
+                <div class="card-text text-center">
+                    Create a QR code 
+                </div>
+                <button class=" m-3 btn btn-primary text-center">Click Here</button>
+            </div>
+        </div>
+    </div>
+    <!-- End Card 1 -->
+
+    <!-- Card 2 -->
+    <div class="col m-5 p-5">
+        <div class="card text-center m-5 rounded">
+            <div class="card-header text-center">
+                Decode My Life
+            </div>
+            <div class="card-body">
+                <div class="card-text text-center">
+                    Read a QR code 
+                </div>
+                <button class="m-3 btn btn-primary text-center">Click Here</button>
+            </div>
+        </div>
+    </div>
+    <!-- End Card 2-->
+
+</div>
+<!-- End Cards -->
+{% endblock %}
