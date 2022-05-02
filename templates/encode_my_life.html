@@ -61,7 +61,7 @@
                 <!-- End URL option -->
 
                 <!-- Wifi Option -->
-                <div class="accodion-item">
+                <div class="accordion-item">
                     <h5 class="accordion-header" id="wifiOpt">
                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseWifiOpt" aria-expanded="false" aria-controls="collapseWifiOpt">
                         Wifi
@@ -72,13 +72,24 @@
                             
                             <form class="form-row" method="POST" action="{{ url_for('wifi') }}">
                                 <div class="col">
-                                    <input name="ssid" type="text" class="form-control" placeholder="ssid" value="{{ request.form['ssid'] }}"></input>
+                                <input name="ssid" type="text" class="form-control" placeholder="ssid" value="{{ request.form['ssid'] }}"></input>
                                 </div>
                                 <div class="col">
-                                    <input name="password" type="password" class="form-control" placeholder="password" value="{{ request.form['password'] }}"></input>
+                                <input name="password" type="password" class="form-control" placeholder="password" value="{{ request.form['password'] }}"></input>
                                 </div>
-                                <div class="col">
-                                    <input name="security" type="text" class="form-control" placeholder="security ie. WPA" value="{{ request.form['security'] }}"></input>
+                                <div class="col">  
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="inlineRadioSecurity" id="inlineRadioWPA" value="WPA">
+                                        <label class="form-check-label" for="inlineRadioWPA">WPA</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="inlineRadioSecurity" id="inlineRadioWEP" value="WEP">
+                                        <label class="form-check-label" for="inlineRadioWEP">WEP</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="inlineRadioSecurity" id="inlineRadioNone" value="None">
+                                        <label class="form-check-label" for="inlineRadioNone">None</label>
+                                    </div>
                                 </div>
                                 <button type="submit" class="btn btn-primary mb-2">Create code</button>
                             </form>
@@ -88,22 +99,36 @@
                 </div>
                 <!-- end Wifi option -->
 
-                <!-- Contact Option -->
+                <!-- meCard Option -->
                 <div class="accordion-item">
-                    <h5 class="accordion-header" id="contactOpt">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseContactOpt" aria-expanded="false" aria-controls="collapseContactOpt">
-                        Contact
+                    <h5 class="accordion-header" id="meCardOpt">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseMeCardOpt" aria-expanded="false" aria-controls="collapseMeCardOpt">
+                        MeCard
                         </button>
                     </h5>
-                    </div>
-                    <div id="collapseContactOpt" class="accodion-collapse collapse" aria-labelledby="contactOpt" data-bs-parent="#qrOpts">
+                    <div id="collapseMeCardOpt" class="accodion-collapse collapse" aria-labelledby="meCardOpt" data-bs-parent="#qrOpts">
                         <div class="accordion-body">
-                            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                            <form class="row g-2" method="POST" action="{{ url_for('meCard') }}">
+                                <div class="col-auto">
+                                    <label for="inputFirstName" class="form-label">First Name</label>
+                                    <input name="firstName" id="inputFirstName" type="text" class="form-control" placeholder="Jane" value="{{ request.form['name'] }}" required></input>
+                                    <input name="primaryTel" type="tel" class="form-control" placeholder="+1-234-567-8900" value="{{ request.form['primaryTel'] }}"></input>
+                                    <input name="nickname" type="text" class="form-control" placeholder="Enter nickname here" value="{{ request.form['nickname']}}"></input>
+                                    <input name="website" type="text" class="form-control" placeholder="www.yourwebsite.com" value="{{ request.form['website'] }}"></input>
+                                </div>
+                                <div class="col-auto">
+                                    <input name="lastName" type="text" class="form-control" placeholder="Doe" value="{{ request.form['lastName'] }}" required></input>
+                                    <input name="email" type="text" class="form-control" placeholder="youremail@email.com" value="{{ request.form['email'] }}"></input>
+                                    <input name="secondaryTel" type="tel" class="form-control" placeholder="+1-234-567-0000" value="{{ request.form['secondaryTel'] }}"></input>
+                                    <input name="birthDate" type="date" class="form-control" placeholder="" value="{{ request.form['birthDate'] }}"></input>
+                                </div>
+                                <button type="submit" class="btn btn-primary mb-2">Create code</button>
+                            </form>
                         </div>
                     </div>
                 </div>
 
-                <!-- end contact opt -->
+                <!-- End meCard opt -->
 
                 <!-- Geo option -->
                 <div class="accordion-item">
@@ -149,18 +174,31 @@
         <div class="col-md-5 col-10 pl-5">
 
             <!-- QR code card -->
+            {% if qrcode %}
             <div class="card">
-                {% if code %}
-                    <img id="qr-code" class="card-img-top" src="data:image/png;base64,{{ code }}" alt="Qr Code">
-                {% else %}
-                    <img id="qr-code" class="card-img-top" src="" alt="Card image cap">
-                {% endif %}
+                <h5 class="card-header text-center">    
+                    {{ qrcode.svg_inline(scale=6) | safe }}
+                </h5>
+                   <img id="qr-code" class="card-img-top" src="" alt="Card image cap">
                 <div class="card-body text-center">
                     <h5 class="card-title">QR Code</h5>
                     <p class="card-text">Click the button bellow to download your QR code. </p>
-                    <a href="data:image/png;base64,{{ code }}" class="btn btn-primary" download="qr_code">Download</a>
+                    <a href="data:image/png;base64,{{ code }}" class="btn btn-primary" download="{{ txt }}">Download</a>
                 </div>
             </div>
+            {% else %}
+            <div class="card" aria-hidden="true">
+                <img src="/static/images/QR My Life.png" class="card-img-top placeholder-glow" alt="QR My Life">
+                <div class="card-body text-center">
+                    <h5 class="card-title placeholder-glow"><span class="placeholder col-6"></span></h5>
+                    <p class="card-text placeholder-glow">
+                        <span class="placeholder col-7"></span>
+                    </p>
+                    <a href="#" tabindex="-1" class="btn btn-primary disabled placeholder col-6"></a>
+                </div>
+            </div>
+            
+            {% endif %}
             <!-- QR card end -->
 
         </div>
