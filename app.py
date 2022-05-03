@@ -26,14 +26,14 @@ def text():
     #img.save(data, kind='png', scale=10)
     #img_data = base64.b64encode(data.getvalue())
     qrcode = segno.make(txt, micro=False)
-    return render_template( 'encode_my_life.html', qrcode=qrcode)
+    return render_template( 'encode_my_life.html', qrcode=qrcode, txt=text)
     #return render_template('encode_my_life.html', txt=txt, code=img_data.decode('utf-8'))
 
 @app.route('/url')
 def url():
     text= request.form['url-input']
     qrcode = segno.make(text, micro=False)
-    return render_template('encode_my_life.html', qrcode=qrcode)
+    return render_template('encode_my_life.html', qrcode=qrcode, txt=text)
 
 
 
@@ -48,7 +48,8 @@ def wifi():
     print(qrcode)
     #qrcode = segno.make_qr(qrcode_data, micro=False, error='h')
     #img_data = base64.b64decode(data.getvalue())
-    return render_template('encode_my_life.html', qrcode=qrcode)
+    text = "wifi"+ ssid
+    return render_template('encode_my_life.html', qrcode=qrcode, txt=text)
     
 
 @app.route('/meCard', methods=['POST'])
@@ -73,9 +74,19 @@ def meCard():
     else:
         tel = primaryTel        
         
+    text = name + "'s_meCard"
     qrcode = helpers.make_mecard(name=name, email=email, phone=tel, nickname=nickname, birthday=birthday, url=url)
-    return render_template('encode_my_life.html', qrcode=qrcode)
+    return render_template('encode_my_life.html', qrcode=qrcode, txt=text)
 
+@app.route('/geo', methods=['POST'])
+def geo():
+    latitude = request.form['lat']
+    longitude = request.form['long']
+    text = latitude + ',' + longitude
+    latitude = float(latitude)
+    longitude = float(longitude)
+    qrcode = segno.helpers.make_geo(latitude, longitude)
+    return render_template('encode_my_life.html', qrcode=qrcode, txt=text)
     
 
 @app.route('/save', methods=['POST'])
