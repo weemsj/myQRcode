@@ -1,6 +1,7 @@
 {% extends 'main.j2' %}
 {% block title %}Encode My Life{% endblock %}
 {% block content %}
+{% set colorPicker = colorPicker %}
     
     <div class="row p-5">
     </div>
@@ -13,23 +14,44 @@
             <!-- Accordion options -->
 
             <div class="accordion" id="qrOpts">
-
+            {% set colors = ['red', 'green', 'blue']%}
                 <!-- Text Option -->
                 <div class="accordion-item">
                     <h5 class="accordion-header" id="textOpt">
-                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTextOpt" aria-expanded="true" aria-controls="collapseTextOpt"> 
+                        <button class="accordion-button" style="background-color:#E27D60" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTextOpt" aria-expanded="true" aria-controls="collapseTextOpt"> 
                         Text
                         </button>
                     </h5>
                     <div id="collapseTextOpt" class="accordion-collapse collapse show" aria-labelledby="textOpt" data-bs-parent="#qrOpts">
-                        <div class="accordion-body">
+                        <div class="accordion-body" style="background-color:#E8A87C">
 
                             <!-- text endcoder form -->
                             <form class="form-row" method="POST" action="{{ url_for('text') }}">
                                 <div class="col">
-                                <input name="text-input" type="text" class="form-control" placeholder="enter text here" value="{{ request.form['text-input'] }}"></input>
+                                <input name="text-input" type="text" class="form-control" placeholder="enter text here" value="{{ request.form['text-input'] }}"/>
                                 </div>
+                                <!-- color selector start -->
+                                <div class="row mt-2 mb-2">
+                                    <p class="card-text text-center">Choose a color for your QR Code </p>
+                                </div>
+                                {% for c in colors %}
+                                    <div class="row mb-3">
+                                        <label for="{{ c }}Text" class="col-form-label col-sm-1 fw-bold lh-1"> {{ c[0] }} </label>
+                                        <div class="col-sm-9">
+                                            <input name="{{ c }}Text" type="range" class="form-range" min="0" max="255" step='1' id="{{ c }}" value="127" onchange="changebackground('Text')" oninput='OutputId{{c}}Text.value = {{ c }}Text.value' >
+                                        </div>
+                                        <div class="col-2">
+                                            <output class="text-center" style="display: block;" id="OutputId{{c}}Text"> 127 </output> 
+                                        </div>
+                                    </div>
+                                
+                                {% endfor %} 
+                    
+                                <div id="resultText" class="shadow rounded d-flex justify-content-center p-5 my-5" style="background-color: rgb(127,127,127);"></div>
+                                <!-- color selector end -->
+
                                 <button type="submit" class="btn btn-primary mb-2">Create code</button>
+                                   
                             </form>
 
                             <!-- end text form -->
@@ -41,7 +63,7 @@
                 <!-- URL option -->
                 <div class="accordion-item">
                     <h5 class="accordion-header" id="urlOpt">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseUrlOpt" aria-expanded="false" aria-controls="collapseUrlOpt">
+                        <button class="accordion-button collapsed" style="background-color:#E27D60" type="button" data-bs-toggle="collapse" data-bs-target="#collapseUrlOpt" aria-expanded="false" aria-controls="collapseUrlOpt">
                         URL
                         </button>
                     </h5>
@@ -50,8 +72,29 @@
 
                             <form class="form-row" method="POST" action="{{ url_for('url') }}">
                                 <div class="col">
-                                <input name="text-input" type="text" class="form-control" placeholder="http://example.com" value="{{ request.form['text-input'] }}"></input>
+                                <input name="url-input" type="text" class="form-control" placeholder="http://example.com" value="{{ request.form['url-input'] }}"/>
                                 </div>
+
+                                <!-- color selector start -->
+                                <div class="row mt-2 mb-2">
+                                    <p class="card-text text-center">Choose a color for your QR Code </p>
+                                </div>
+                                {% for c in colors %}
+                                    <div class="row mb-3">
+                                        <label for="{{ c }}URL" class="col-form-label col-sm-1 fw-bold lh-1"> {{ c[0] }} </label>
+                                        <div class="col-sm-9">
+                                            <input name="{{ c }}URL" type="range" class="form-range" min="0" max="255" step='1' id="{{ c }}URL" value="127" onchange="changebackground('URL')" oninput='OutputId{{c}}URL.value = {{ c }}URL.value' >
+                                        </div>
+                                        <div class="col-2">
+                                            <output class="text-center" style="display: block;" id="OutputId{{c}}URL"> 127 </output> 
+                                        </div>
+                                    </div>
+                                
+                                {% endfor %} 
+                    
+                                <div id="resultURL" class="shadow rounded d-flex justify-content-center p-5 my-5" style="background-color: rgb(127,127,127);"></div>
+                                <!-- color selector end -->
+
                                 <button type="submit" class="btn btn-primary mb-2">Create code</button>
                             </form>
 
@@ -63,7 +106,7 @@
                 <!-- Wifi Option -->
                 <div class="accordion-item">
                     <h5 class="accordion-header" id="wifiOpt">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseWifiOpt" aria-expanded="false" aria-controls="collapseWifiOpt">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseWifiOpt" aria-expanded="false" aria-controls="collapseWifiOpt">   
                         Wifi
                         </button>
                     </h5>
@@ -72,10 +115,10 @@
                             
                             <form class="form-row" method="POST" action="{{ url_for('wifi') }}">
                                 <div class="col">
-                                <input name="ssid" type="text" class="form-control" placeholder="ssid" value="{{ request.form['ssid'] }}"></input>
+                                <input name="ssid" type="text" class="form-control" placeholder="ssid" value="{{ request.form['ssid'] }}"/>
                                 </div>
                                 <div class="col">
-                                <input name="password" type="password" class="form-control" placeholder="password" value="{{ request.form['password'] }}"></input>
+                                <input name="password" type="password" class="form-control" placeholder="password" value="{{ request.form['password'] }}"/>
                                 </div>
                                 <div class="col">  
                                     <div class="form-check form-check-inline">
@@ -91,6 +134,27 @@
                                         <label class="form-check-label" for="inlineRadioNone">None</label>
                                     </div>
                                 </div>
+
+                                <!-- color selector start -->
+                                <div class="row mt-2 mb-2">
+                                    <p class="card-text text-center">Choose a color for your QR Code </p>
+                                </div>
+                                {% for c in colors %}
+                                    <div class="row mb-3">
+                                        <label for="{{ c }}Wifi" class="col-form-label col-sm-1 fw-bold lh-1"> {{ c[0] }} </label>
+                                        <div class="col-sm-9">
+                                            <input name="{{ c }}Wifi" type="range" class="form-range" min="0" max="255" step='1' id="{{ c }}Wifi" value="127" onchange="changebackground('Wifi')" oninput='OutputId{{c}}Wifi.value = {{ c }}Wifi.value' >
+                                        </div>
+                                        <div class="col-2">
+                                            <output class="text-center" style="display: block;" id="OutputId{{c}}Wifi"> 127 </output> 
+                                        </div>
+                                    </div>
+                                
+                                {% endfor %} 
+                    
+                                <div id="resultWifi" class="shadow rounded d-flex justify-content-center p-5 my-5" style="background-color: rgb(127,127,127);"></div>
+                                <!-- color selector end -->
+
                                 <button type="submit" class="btn btn-primary mb-2">Create code</button>
                             </form>
 
@@ -102,7 +166,7 @@
                 <!-- meCard Option -->
                 <div class="accordion-item">
                     <h5 class="accordion-header" id="meCardOpt">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseMeCardOpt" aria-expanded="false" aria-controls="collapseMeCardOpt">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseMeCardOpt" aria-expanded="false" aria-controls="collapseMeCardOpt">    
                         MeCard
                         </button>
                     </h5>
@@ -111,24 +175,45 @@
                             <form class="row g-2" method="POST" action="{{ url_for('meCard') }}">
                                 <div class="col-auto">
                                     <label for="inputFirstName" class="form-label">First Name</label>
-                                    <input name="firstName" id="inputFirstName" type="text" class="form-control" placeholder="Jane" value="{{ request.form['name'] }}" required></input>
+                                    <input name="firstName" id="inputFirstName" type="text" class="form-control" placeholder="Jane" value="{{ request.form['name'] }}" required/>
                                     <label for="inputPrimaryTel" class="form-label">Telephone 1</label>
-                                    <input name="primaryTel" id="inputPrimaryTel" type="tel" class="form-control" placeholder="+1-234-567-8900" value="{{ request.form['primaryTel'] }}"></input>
+                                    <input name="primaryTel" id="inputPrimaryTel" type="tel" class="form-control" placeholder="+1-234-567-8900" value="{{ request.form['primaryTel'] }}"/>
                                     <label for="inputNickname" class="form-label">Nickname</label>
-                                    <input name="nickname" id="inputNickname" type="text" class="form-control" placeholder="Enter nickname here" value="{{ request.form['nickname']}}"></input>
+                                    <input name="nickname" id="inputNickname" type="text" class="form-control" placeholder="Enter nickname here" value="{{ request.form['nickname']}}"/>
                                     <label for="inputWebsite" class="form-label">Website</label>
-                                    <input name="website" id="inputWebsite" type="url" class="form-control" placeholder="www.yourwebsite.com" value="{{ request.form['website'] }}"></input>
+                                    <input name="website" id="inputWebsite" type="url" class="form-control" placeholder="www.yourwebsite.com" value="{{ request.form['website'] }}"/>
                                 </div>
                                 <div class="col-auto">
                                     <label for="inputLastName" class="form-label">Last Name</label>
-                                    <input name="lastName" id="inputLastName" type="text" class="form-control" placeholder="Doe" value="{{ request.form['lastName'] }}" required></input>
+                                    <input name="lastName" id="inputLastName" type="text" class="form-control" placeholder="Doe" value="{{ request.form['lastName'] }}" required/>
                                     <label for="inputEmail" class="form-label">Email</label>
-                                    <input name="email" id="inputEmail" type="text" class="form-control" placeholder="youremail@email.com" value="{{ request.form['email'] }}"></input>
+                                    <input name="email" id="inputEmail" type="text" class="form-control" placeholder="youremail@email.com" value="{{ request.form['email'] }}"/>
                                     <label for="inputSecondaryTel" class="form-label">Telephone 2</label>
-                                    <input name="secondaryTel" id="inputSecondaryTel" type="tel" class="form-control" placeholder="+1-234-567-0000" value="{{ request.form['secondaryTel'] }}"></input>
+                                    <input name="secondaryTel" id="inputSecondaryTel" type="tel" class="form-control" placeholder="+1-234-567-0000" value="{{ request.form['secondaryTel'] }}"/>
                                     <label for="inputBirthDate" class="form-label">Birthdat</label>
-                                    <input name="birthDate" id="inputBirthDate" type="date" class="form-control" placeholder="" value="{{ request.form['birthDate'] }}"></input>
+                                    <input name="birthDate" id="inputBirthDate" type="date" class="form-control" placeholder="" value="{{ request.form['birthDate'] }}"/>
                                 </div>
+                                
+                                <!-- color selector start -->
+                                <div class="row mt-2 mb-2">
+                                    <p class="card-text text-center">Choose a color for your QR Code </p>
+                                </div>
+                                {% for c in colors %}
+                                    <div class="row mb-3">
+                                        <label for="{{ c }}MeCard" class="col-form-label col-sm-1 fw-bold lh-1"> {{ c[0] }} </label>
+                                        <div class="col-sm-9">
+                                            <input name="{{ c }}MeCard" type="range" class="form-range" min="0" max="255" step='1' id="{{ c }}MeCard" value="127" onchange="changebackground('MeCard')" oninput='OutputId{{c}}MeCard.value = {{ c }}MeCard.value' >
+                                        </div>
+                                        <div class="col-2">
+                                            <output class="text-center" style="display: block;" id="OutputId{{c}}MeCard"> 127 </output> 
+                                        </div>
+                                    </div>
+                                
+                                {% endfor %} 
+                    
+                                <div id="resultMeCard" class="shadow rounded d-flex justify-content-center p-5 my-5" style="background-color: rgb(127,127,127);"></div>
+                                <!-- color selector end -->
+
                                 <button type="submit" class="btn btn-primary mb-2">Create code</button>
                             </form>
                         </div>
@@ -141,6 +226,7 @@
                 <div class="accordion-item">
                     <h5 class="accordion-header" id="geoOpt">
                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseGeoOpt" aria-expanded="false" aria-controls="collapseGeoOpt">
+                        
                         Geographic Location
                         </button>
                     </h5>
@@ -148,13 +234,40 @@
                         <div class="accordion-body">
                             <form class="form-row" method="POST" action="{{ url_for('geo') }}">
                                 <div class="col">
-                                <label for="inputLat" class="form-label">Latitude</label>
-                                <input name="lat" id="inputLat" type="number" step="0.00001" class="form-control" placeholder="39.099728" value="{{ request.form['lat'] }}"></input>
+                                    <label for="address" class="form-label">Address</label>
+                                    <input name="address" id="address" type="text" class="form-control" placeholder="1600 Pennsylvania Ave NW" value="{{ request.form['address'] }}"/>
                                 </div>
-                                <div class="col">
-                                    <label for="inputLong" class="form-label">Latitude</label>    
-                                <input name="long" id="inputLong" type="number" step="0.00001" class="form-control" placeholder="-94.578568" value="{{ request.form['long'] }}"></input>
+                                <div class="row">
+                                    <div class="col-auto">
+                                        <label for="city" class="form-label">City</label>    
+                                        <input name="city" id="city" type="text" class="form-control" placeholder="Washington" value="{{ request.form['city'] }}"/>
+                                    </div>
+                                    <div class="col-auto">
+                                        <label for="state" class="form-label">State (optional for non US address)</label>
+                                        <input name="state" id="state" type="text" class="form-control" placeholder="DC" value="{{ request.form['state'] }}"/>
+                                    </div>
                                 </div>
+
+                                <!-- color selector start -->
+                                <div class="row mt-2 mb-2">
+                                    <p class="card-text text-center">Choose a color for your QR Code </p>
+                                </div>
+                                {% for c in colors %}
+                                    <div class="row mb-3">
+                                        <label for="{{ c }}Geo" class="col-form-label col-sm-1 fw-bold lh-1"> {{ c[0] }} </label>
+                                        <div class="col-sm-9">
+                                            <input name="{{ c }}Geo" type="range" class="form-range" min="0" max="255" step='1' id="{{ c }}Geo" value="127" onchange="changebackground('Geo')" oninput='OutputId{{c}}Geo.value = {{ c }}Geo.value' >
+                                        </div>
+                                        <div class="col-2">
+                                            <output class="text-center" style="display: block;" id="OutputId{{c}}Geo"> 127 </output> 
+                                        </div>
+                                    </div>
+                                
+                                {% endfor %} 
+                    
+                                <div id="resultGeo" class="shadow rounded d-flex justify-content-center p-5 my-5" style="background-color: rgb(127,127,127);"></div>
+                                <!-- color selector end -->
+
                                 <button type="submit" class="btn btn-primary mb-2">Create code</button>
                             </form>
                         </div>
@@ -163,24 +276,7 @@
             
                 <!-- end geo option -->
 
-                <!-- EPC option -->
-
-                <div class="accordion-item">
-                    <h5 class="accordion-header" id="epcOpt">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseEpcOpt" aria-expanded="false" aria-controls="collapseEpcOpt">
-                        EPC
-                        </button>
-                    </h5>
-                    <div id="collapseEpcOpt" class="accordion-collapse collapse" aria-labelledby="epcOpt" data-bs-parent="#qrOpts">
-                        <div class="accordion-body">
-                            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-                        </div>
-                    </div>
-                </div>
-                <!-- end EPC-->
-
             </div>
-
             <!-- End Accordion Options -->
 
         </div>
@@ -192,12 +288,25 @@
 
             <!-- QR code card -->
             {% if qrcode %}
-            <div class="card">
-                <img src="{{ qrcode.svg_data_uri(dark='darkblue', scale=5) }}" class="card-img-top" alt="qrcode">
-                <div class="card-body text-center">
+            <div class="card text-center">
+                    
+                <img id=qrcode src="{{ qrcode.png_data_uri(dark=(color.red, color.green, color.blue), scale=10) }}" class="card-img-top" alt="qrcode">
+                
+                <div class="card-body">
                     <h5 class="card-title">QR Code</h5>
-                    <p class="card-text">Click the button bellow to download your QR code. </p>
-                    <a href="{{ qrcode.svg_data_uri(dark='darkblue', scale=5) }}" class="btn btn-primary" download="{{ txt }}">Download</a>
+                    <p class="card-text ">
+                        <p> {{text}} </p>
+                    <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+
+                        <div class="btn-group" role="group">
+                            <button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">Download</button>
+                                <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                                    <li><a class="dropdown-item" href="{{ qrcode.png_data_uri(dark=(color.red, color.green, color.blue), scale=10) }}" download="{{ text }}">PNG</a></li>
+                                    <li><a class="dropdown-item" href="{{ qrcode.svg_data_uri(dark=(color.red, color.green, color.blue), scale=10) }}" download="{{ text }}">SVG</a></li>
+                                </ul>
+                        </div>
+                    </div>   
+                    </p>
                 </div>
             </div>
             {% else %}
@@ -218,7 +327,5 @@
         </div>
         <!-- column end -->
     </div>
- 
-
 
 {% endblock %}

@@ -1,13 +1,21 @@
+from time import sleep
 from flask import Flask, request, render_template, send_file
 from PIL import Image
 import base64
 import io
+import qrCodeLive
 import segno
 from segno import QRCode, helpers
 
+live = qrCodeLive
 
 app = Flask(__name__)
-   
+
+colors = {
+    'red': 127,
+    'green': 127,
+    'blue': 127
+}
 
 @app.route('/', methods=['GET'])
 def index():
@@ -17,23 +25,44 @@ def index():
 def encode_my_life():
     return render_template('encode_my_life.html')
 
+
+@app.route('/decode_my_life')
+def decode_my_life():
+    return render_template('decode_my_life.html')
+
+
 @app.route('/text', methods=['POST', 'GET'])
 def text():
-    txt = request.form['text-input']
-    print(txt)
-    #img = segno.make(txt, micro=False)
-    #data = io.BytesIO()
-    #img.save(data, kind='png', scale=10)
-    #img_data = base64.b64encode(data.getvalue())
-    qrcode = segno.make(txt, micro=False)
-    return render_template( 'encode_my_life.html', qrcode=qrcode, txt=text)
-    #return render_template('encode_my_life.html', txt=txt, code=img_data.decode('utf-8'))
+    if request.method == 'POST':
+        text = request.form['text-input']
+        r = request.form.get('redText')
+        g = request.form.get('greenText')
+        b = request.form.get('blueText')
+        qrcode = segno.make(text, micro=False)
+        if r == None:
+            return render_template( 'encode_my_life.html', qrcode=qrcode, text=text, route='text', color=colors)    
+        colors['red'] = int(r)    
+        colors['green'] = int(g)
+        colors['blue'] = int(b)
+        return render_template( 'encode_my_life.html', qrcode=qrcode, text=text, route='text', color=colors)
 
-@app.route('/url')
+
+@app.route('/url', methods=['POST'])
 def url():
-    text= request.form['url-input']
-    qrcode = segno.make(text, micro=False)
-    return render_template('encode_my_life.html', qrcode=qrcode, txt=text)
+    if request.method == 'POST':
+        text = request.form.get('url-input')
+        print(text)
+        r = request.form.get('redURL')
+        g = request.form.get('greenURL')
+        b = request.form.get('blueURL')
+        qrcode = segno.make(text, micro=False)
+        if r == None:
+            return render_template( 'encode_my_life.html', qrcode=qrcode, text=text, route='text', color=colors)
+        
+        colors['red'] = int(r)    
+        colors['green'] = int(g)
+        colors['blue'] = int(b)
+        return render_template( 'encode_my_life.html', qrcode=qrcode, text=text, route='url', color=colors)
 
 
 
@@ -45,12 +74,17 @@ def wifi():
     if security == "None":
         security = None
     qrcode = helpers.make_wifi(ssid=ssid, password=password, security=security, hidden=False)
-    print(qrcode)
-    #qrcode = segno.make_qr(qrcode_data, micro=False, error='h')
-    #img_data = base64.b64decode(data.getvalue())
     text = "wifi"+ ssid
-    return render_template('encode_my_life.html', qrcode=qrcode, txt=text)
-    
+    r = request.form.get('redWifi')
+    g = request.form.get('greenWifi')
+    b = request.form.get('blueWifi')
+    if r == None:    
+        return render_template('encode_my_life.html', qrcode=qrcode, text=text, route='wifi', color=colors)
+    colors['red'] = int(r)    
+    colors['green'] = int(g)
+    colors['blue'] = int(b)    
+    return render_template('encode_my_life.html', qrcode=qrcode, text=text, route='wifi', color=colors) 
+
 
 @app.route('/meCard', methods=['POST'])
 def meCard():
@@ -62,6 +96,10 @@ def meCard():
     nickname= request.form['nickname']
     birthday= request.form['birthDate'] # YYYY-MM-DD
     url= request.form['website']
+    
+    r = request.form.get('redMeCard')
+    g = request.form.get('greenMeCard')
+    b = request.form.get('blueMeCard')
     
     vals = [name, email, primaryTel, secondaryTel, nickname, birthday, url]
     
@@ -76,19 +114,40 @@ def meCard():
         
     text = name + "'s_meCard"
     qrcode = helpers.make_mecard(name=name, email=email, phone=tel, nickname=nickname, birthday=birthday, url=url)
-    return render_template('encode_my_life.html', qrcode=qrcode, txt=text)
+    
+    if r == None:
+        return render_template('encode_my_life.html', qrcode=qrcode, text=text, route='meCard', color=colors)
+    colors['red'] = int(r)    
+    colors['green'] = int(g)
+    colors['blue'] = int(b)
+    return render_template('encode_my_life.html', qrcode=qrcode, text=text, route='meCard', color=colors)
+    
 
 @app.route('/geo', methods=['POST'])
 def geo():
-    latitude = request.form['lat']
-    longitude = request.form['long']
-    text = latitude + ',' + longitude
-    latitude = float(latitude)
-    longitude = float(longitude)
+    address = request.form['address']
+    city = request.form['city']
+    state = request.form['state']
+    text = address + ', ' + city + ', ' + state
+    with open('geo-location/input.txt', 'w') as f:
+        f.write(text)
+    sleep(5)
+    f = open('geo-location/output.txt', 'r')
+    coor = f.read() 
+    latt, long = coor.split(', ')
+    latitude = float(latt)
+    longitude = float(long)  
     qrcode = segno.helpers.make_geo(latitude, longitude)
-    return render_template('encode_my_life.html', qrcode=qrcode, txt=text)
+    r = request.form.get('redGeo')
+    g = request.form.get('greenGeo')
+    b = request.form.get('blueGeo')
+    if r == None:
+        return render_template('encode_my_life.html', qrcode=qrcode, text=text, route='geo', color=colors)
+    colors['red'] = int(r)    
+    colors['green'] = int(g)
+    colors['blue'] = int(b)
+    return render_template('encode_my_life.html', qrcode=qrcode, text=text, route='geo', color=colors)
     
-
 @app.route('/save', methods=['POST'])
 def gen_qrcode_save(save_type):
     # try to send qr code back for saving
