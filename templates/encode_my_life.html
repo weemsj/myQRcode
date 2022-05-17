@@ -9,7 +9,7 @@
     <div class="row p-5 justify-content-center">
 
         <!-- QR options column -->
-        <div class="col-md-5 col-10 pr-5">
+        <div class="col-md-6 col-10 pr-0">
 
             <!-- Accordion options -->
 
@@ -18,12 +18,12 @@
                 <!-- Text Option -->
                 <div class="accordion-item">
                     <h5 class="accordion-header" id="textOpt">
-                        <button class="accordion-button" style="background-color:#E27D60" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTextOpt" aria-expanded="true" aria-controls="collapseTextOpt"> 
+                        <button class="accordion-button btn-dark btn-outline-dark" style="background-color:#E0A96D" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTextOpt" aria-expanded="true" aria-controls="collapseTextOpt"> 
                         Text
                         </button>
                     </h5>
                     <div id="collapseTextOpt" class="accordion-collapse collapse show" aria-labelledby="textOpt" data-bs-parent="#qrOpts">
-                        <div class="accordion-body" style="background-color:#E8A87C">
+                        <div class="accordion-body" style="background-color:#DDC3A5">
 
                             <!-- text endcoder form -->
                             <form class="form-row" method="POST" action="{{ url_for('text') }}">
@@ -63,7 +63,7 @@
                 <!-- URL option -->
                 <div class="accordion-item">
                     <h5 class="accordion-header" id="urlOpt">
-                        <button class="accordion-button collapsed" style="background-color:#E27D60" type="button" data-bs-toggle="collapse" data-bs-target="#collapseUrlOpt" aria-expanded="false" aria-controls="collapseUrlOpt">
+                        <button class="accordion-button collapsed" style="background-color:#E0A96D" type="button" data-bs-toggle="collapse" data-bs-target="#collapseUrlOpt" aria-expanded="false" aria-controls="collapseUrlOpt">
                         URL
                         </button>
                     </h5>
@@ -106,7 +106,7 @@
                 <!-- Wifi Option -->
                 <div class="accordion-item">
                     <h5 class="accordion-header" id="wifiOpt">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseWifiOpt" aria-expanded="false" aria-controls="collapseWifiOpt">   
+                        <button class="accordion-button collapsed" type="button" style="background-color:#E0A96D" data-bs-toggle="collapse" data-bs-target="#collapseWifiOpt" aria-expanded="false" aria-controls="collapseWifiOpt">   
                         Wifi
                         </button>
                     </h5>
@@ -166,7 +166,7 @@
                 <!-- meCard Option -->
                 <div class="accordion-item">
                     <h5 class="accordion-header" id="meCardOpt">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseMeCardOpt" aria-expanded="false" aria-controls="collapseMeCardOpt">    
+                        <button class="accordion-button collapsed" type="button" style="background-color:#E0A96D" data-bs-toggle="collapse" data-bs-target="#collapseMeCardOpt" aria-expanded="false" aria-controls="collapseMeCardOpt">    
                         MeCard
                         </button>
                     </h5>
@@ -225,7 +225,7 @@
                 <!-- Geo option -->
                 <div class="accordion-item">
                     <h5 class="accordion-header" id="geoOpt">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseGeoOpt" aria-expanded="false" aria-controls="collapseGeoOpt">
+                        <button class="accordion-button collapsed" type="button" style="background-color:#E0A96D" data-bs-toggle="collapse" data-bs-target="#collapseGeoOpt" aria-expanded="false" aria-controls="collapseGeoOpt">
                         
                         Geographic Location
                         </button>
@@ -284,15 +284,15 @@
 
 
         <!-- QR code column -->
-        <div class="col-md-5 col-10 pl-5">
+        <div class="col-md-6 col-10 pl-0">
 
             <!-- QR code card -->
             {% if qrcode %}
-            <div class="card text-center">
+            <div class="card text-center" style="background-color:#E0A96D">
                     
                 <img id=qrcode src="{{ qrcode.png_data_uri(dark=(color.red, color.green, color.blue), scale=10) }}" class="card-img-top" alt="qrcode">
                 
-                <div class="card-body">
+                <div class="card-body" style="background-color:#E0A96D" >
                     <h5 class="card-title">QR Code</h5>
                     <p class="card-text ">
                         <p> {{text}} </p>
