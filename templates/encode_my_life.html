@@ -34,6 +34,7 @@
                                 <div class="col">
                                 <input name="text-input" type="text" class="form-control" placeholder="enter text here" value="{{ request.form['text-input'] }}"/>
                                 </div>
+
                                 <!-- color selector start -->
                                 <div class="row mt-2 mb-2">
                                     <p class="card-text text-center">Choose a color for your QR Code </p>
@@ -48,7 +49,6 @@
                                             <output class="text-center" style="display: block;" id="OutputId{{c}}Text"> 127 </output> 
                                         </div>
                                     </div>
-                                
                                 {% endfor %} 
                     
                                 <div id="resultText" class="shadow rounded d-flex justify-content-center p-5 my-5" style="background-color: rgb(127,127,127);"></div>
@@ -57,7 +57,6 @@
                                 <button type="submit" class="btn btn-primary mb-2">Create code</button>
                                    
                             </form>
-
                             <!-- end text form -->
                         </div>
                     </div>

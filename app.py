@@ -1,8 +1,6 @@
 from time import sleep
 from flask import Flask, request, render_template, send_file
 from PIL import Image
-import base64
-import io
 import qrCodeLive
 import segno
 from segno import QRCode, helpers
@@ -39,7 +37,7 @@ def text():
         g = request.form.get('greenText')
         b = request.form.get('blueText')
         qrcode = segno.make(text, micro=False)
-        if r == None:
+        if r == None:   # if the color value in the variable r is "None", we will take the default colors from the dictionary
             return render_template( 'encode_my_life.html', qrcode=qrcode, text=text, route='text', color=colors)    
         colors['red'] = int(r)    
         colors['green'] = int(g)
@@ -115,7 +113,7 @@ def meCard():
     text = name + "'s_meCard"
     qrcode = helpers.make_mecard(name=name, email=email, phone=tel, nickname=nickname, birthday=birthday, url=url)
     
-    if r == None:
+    if r == None:      
         return render_template('encode_my_life.html', qrcode=qrcode, text=text, route='meCard', color=colors)
     colors['red'] = int(r)    
     colors['green'] = int(g)
