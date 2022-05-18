@@ -1,4 +1,4 @@
-{% extends 'main.j2' %}
+{% extends 'main.html' %}
 {% block title %}Encode My Life{% endblock %}
 {% block content %}
 {% set colorPicker = colorPicker %}
@@ -18,12 +18,16 @@
                 <!-- Text Option -->
                 <div class="accordion-item">
                     <h5 class="accordion-header" id="textOpt">
-                        <button class="accordion-button btn-dark btn-outline-dark" style="background-color:#E0A96D" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTextOpt" aria-expanded="true" aria-controls="collapseTextOpt"> 
-                        Text
+                        <button class="accordion-button btn-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTextOpt" aria-expanded="true" aria-controls="collapseTextOpt"> 
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-textarea-t" viewBox="0 0 16 16">
+                                <path d="M1.5 2.5A1.5 1.5 0 0 1 3 1h10a1.5 1.5 0 0 1 1.5 1.5v3.563a2 2 0 0 1 0 3.874V13.5A1.5 1.5 0 0 1 13 15H3a1.5 1.5 0 0 1-1.5-1.5V9.937a2 2 0 0 1 0-3.874V2.5zm1 3.563a2 2 0 0 1 0 3.874V13.5a.5.5 0 0 0 .5.5h10a.5.5 0 0 0 .5-.5V9.937a2 2 0 0 1 0-3.874V2.5A.5.5 0 0 0 13 2H3a.5.5 0 0 0-.5.5v3.563zM2 7a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm12 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/>
+                                <path d="M11.434 4H4.566L4.5 5.994h.386c.21-1.252.612-1.446 2.173-1.495l.343-.011v6.343c0 .537-.116.665-1.049.748V12h3.294v-.421c-.938-.083-1.054-.21-1.054-.748V4.488l.348.01c1.56.05 1.963.244 2.173 1.496h.386L11.434 4z"/>
+                            </svg>
+                            &nbsp;&nbsp; Text
                         </button>
                     </h5>
                     <div id="collapseTextOpt" class="accordion-collapse collapse show" aria-labelledby="textOpt" data-bs-parent="#qrOpts">
-                        <div class="accordion-body" style="background-color:#DDC3A5">
+                        <div class="accordion-body">
 
                             <!-- text endcoder form -->
                             <form class="form-row" method="POST" action="{{ url_for('text') }}">
@@ -63,8 +67,12 @@
                 <!-- URL option -->
                 <div class="accordion-item">
                     <h5 class="accordion-header" id="urlOpt">
-                        <button class="accordion-button collapsed" style="background-color:#E0A96D" type="button" data-bs-toggle="collapse" data-bs-target="#collapseUrlOpt" aria-expanded="false" aria-controls="collapseUrlOpt">
-                        URL
+                        <button class="accordion-button collapsed btn-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseUrlOpt" aria-expanded="false" aria-controls="collapseUrlOpt">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-link-45deg" viewBox="0 0 16 16">
+                                <path d="M4.715 6.542 3.343 7.914a3 3 0 1 0 4.243 4.243l1.828-1.829A3 3 0 0 0 8.586 5.5L8 6.086a1.002 1.002 0 0 0-.154.199 2 2 0 0 1 .861 3.337L6.88 11.45a2 2 0 1 1-2.83-2.83l.793-.792a4.018 4.018 0 0 1-.128-1.287z"/>
+                                <path d="M6.586 4.672A3 3 0 0 0 7.414 9.5l.775-.776a2 2 0 0 1-.896-3.346L9.12 3.55a2 2 0 1 1 2.83 2.83l-.793.792c.112.42.155.855.128 1.287l1.372-1.372a3 3 0 1 0-4.243-4.243L6.586 4.672z"/>
+                              </svg>
+                              &nbsp;&nbsp; URL
                         </button>
                     </h5>
                     <div id="collapseUrlOpt" class="accordion-collapse collapse" aria-labelledby="urlOpt" data-bs-parent="#qrOpts">
@@ -106,8 +114,12 @@
                 <!-- Wifi Option -->
                 <div class="accordion-item">
                     <h5 class="accordion-header" id="wifiOpt">
-                        <button class="accordion-button collapsed" type="button" style="background-color:#E0A96D" data-bs-toggle="collapse" data-bs-target="#collapseWifiOpt" aria-expanded="false" aria-controls="collapseWifiOpt">   
-                        Wifi
+                        <button class="accordion-button collapsed btn-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseWifiOpt" aria-expanded="false" aria-controls="collapseWifiOpt">   
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-wifi" viewBox="0 0 16 16">
+                                <path d="M15.384 6.115a.485.485 0 0 0-.047-.736A12.444 12.444 0 0 0 8 3C5.259 3 2.723 3.882.663 5.379a.485.485 0 0 0-.048.736.518.518 0 0 0 .668.05A11.448 11.448 0 0 1 8 4c2.507 0 4.827.802 6.716 2.164.205.148.49.13.668-.049z"/>
+                                <path d="M13.229 8.271a.482.482 0 0 0-.063-.745A9.455 9.455 0 0 0 8 6c-1.905 0-3.68.56-5.166 1.526a.48.48 0 0 0-.063.745.525.525 0 0 0 .652.065A8.46 8.46 0 0 1 8 7a8.46 8.46 0 0 1 4.576 1.336c.206.132.48.108.653-.065zm-2.183 2.183c.226-.226.185-.605-.1-.75A6.473 6.473 0 0 0 8 9c-1.06 0-2.062.254-2.946.704-.285.145-.326.524-.1.75l.015.015c.16.16.407.19.611.09A5.478 5.478 0 0 1 8 10c.868 0 1.69.201 2.42.56.203.1.45.07.61-.091l.016-.015zM9.06 12.44c.196-.196.198-.52-.04-.66A1.99 1.99 0 0 0 8 11.5a1.99 1.99 0 0 0-1.02.28c-.238.14-.236.464-.04.66l.706.706a.5.5 0 0 0 .707 0l.707-.707z"/>
+                            </svg>
+                            &nbsp;&nbsp; Wifi
                         </button>
                     </h5>
                     <div id="collapseWifiOpt" class="accodion-collapse collapse" aria-labelledby="wifiOpt" data-bs-parent="#qrOpts">
@@ -166,8 +178,12 @@
                 <!-- meCard Option -->
                 <div class="accordion-item">
                     <h5 class="accordion-header" id="meCardOpt">
-                        <button class="accordion-button collapsed" type="button" style="background-color:#E0A96D" data-bs-toggle="collapse" data-bs-target="#collapseMeCardOpt" aria-expanded="false" aria-controls="collapseMeCardOpt">    
-                        MeCard
+                        <button class="accordion-button collapsed btn-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseMeCardOpt" aria-expanded="false" aria-controls="collapseMeCardOpt">    
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-person" viewBox="0 0 16 16">
+                                <path d="M12 1a1 1 0 0 1 1 1v10.755S12 11 8 11s-5 1.755-5 1.755V2a1 1 0 0 1 1-1h8zM4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H4z"/>
+                                <path d="M8 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+                            </svg>
+                            &nbsp;&nbsp; MeCard
                         </button>
                     </h5>
                     <div id="collapseMeCardOpt" class="accodion-collapse collapse" aria-labelledby="meCardOpt" data-bs-parent="#qrOpts">
@@ -225,9 +241,11 @@
                 <!-- Geo option -->
                 <div class="accordion-item">
                     <h5 class="accordion-header" id="geoOpt">
-                        <button class="accordion-button collapsed" type="button" style="background-color:#E0A96D" data-bs-toggle="collapse" data-bs-target="#collapseGeoOpt" aria-expanded="false" aria-controls="collapseGeoOpt">
-                        
-                        Geographic Location
+                        <button class="accordion-button collapsed btn-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseGeoOpt" aria-expanded="false" aria-controls="collapseGeoOpt">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-geo" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M8 1a3 3 0 1 0 0 6 3 3 0 0 0 0-6zM4 4a4 4 0 1 1 4.5 3.969V13.5a.5.5 0 0 1-1 0V7.97A4 4 0 0 1 4 3.999zm2.493 8.574a.5.5 0 0 1-.411.575c-.712.118-1.28.295-1.655.493a1.319 1.319 0 0 0-.37.265.301.301 0 0 0-.057.09V14l.002.008a.147.147 0 0 0 .016.033.617.617 0 0 0 .145.15c.165.13.435.27.813.395.751.25 1.82.414 3.024.414s2.273-.163 3.024-.414c.378-.126.648-.265.813-.395a.619.619 0 0 0 .146-.15.148.148 0 0 0 .015-.033L12 14v-.004a.301.301 0 0 0-.057-.09 1.318 1.318 0 0 0-.37-.264c-.376-.198-.943-.375-1.655-.493a.5.5 0 1 1 .164-.986c.77.127 1.452.328 1.957.594C12.5 13 13 13.4 13 14c0 .426-.26.752-.544.977-.29.228-.68.413-1.116.558-.878.293-2.059.465-3.34.465-1.281 0-2.462-.172-3.34-.465-.436-.145-.826-.33-1.116-.558C3.26 14.752 3 14.426 3 14c0-.599.5-1 .961-1.243.505-.266 1.187-.467 1.957-.594a.5.5 0 0 1 .575.411z"/>
+                            </svg>
+                            &nbsp;&nbsp; Geographic Location </p>
                         </button>
                     </h5>
                     <div id="collapseGeoOpt" class="accordion-collapse collapse" aria-labelledby="geoOpt" data-bs-parent="#qrOpts">
@@ -284,13 +302,13 @@
 
 
         <!-- QR code column -->
-        <div class="col-md-6 col-10 pl-0">
+        <div class="col-md-4 col-10 pl-0">
 
             <!-- QR code card -->
             {% if qrcode %}
-            <div class="card text-center" style="background-color:#E0A96D">
+            <div class="card text-center">
                     
-                <img id=qrcode src="{{ qrcode.png_data_uri(dark=(color.red, color.green, color.blue), scale=10) }}" class="card-img-top" alt="qrcode">
+                <img id=qrcode src="{{ qrcode.png_data_uri(dark=(color.red, color.green, color.blue), scale=10) }}" class="card-img-top" alt="qrcode" >
                 
                 <div class="card-body" style="background-color:#E0A96D" >
                     <h5 class="card-title">QR Code</h5>
